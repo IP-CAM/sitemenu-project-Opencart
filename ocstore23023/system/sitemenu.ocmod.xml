@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<code>Sitemenu</code>
+	<name>Sitemenu</name>
+	<version>1.0.0</version>
+	<author>Andrew - me@fan37.ru</author>
+	<link>http://fan37.ru</link>
+	
+	<file path="catalog/controller/common/header.php">
+		<operation>
+			<search>
+				<![CDATA[
+		$this->load->model('catalog/category');
+				]]>
+			</search>
+			<add position="before">
+				<![CDATA[
+		$this->load->model('extension/module/sitemenu');
+		$sitemenus = $this->model_extension_module_sitemenu->getSitemenuModules();
+
+		$data['menu'] = array();
+		
+		foreach($sitemenus as $sitemenu) {
+			foreach($sitemenu as $menu) {
+				$item = json_decode($menu, true);
+				if (isset($item['position_header'])) {
+					$data['menu'][$item['slug']] = array(
+						'title'   => $item['name'],
+						'links'   => $item['links'],
+					);
+				}
+			}
+		}
+				]]>
+			</add>
+		</operation>
+	</file>
+
+	<file path="catalog/view/theme/default/template/common/header.tpl">
+		<operation>
+			<search>
+				<![CDATA[
+<?php if ($categories) { ?>
+				]]>
+			</search>
+			<add position="replace">
+				<![CDATA[
+<?php var_dump($menu); ?>
+<?php if ($menu) { ?>
+	<div class="container">
+		<nav id="menu" class="navbar">
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+      			<ul class="nav navbar-nav">
+					<?php foreach($menu['main']['links'] as $link) { ?>
+					<li>
+						<a href="<?php echo $link['href']; ?>"><?php echo $link['title']; ?></a>
+						<?php if ($link['sub-link']) { ?>
+						<p>DAAA</p>
+						<?php } ?>
+					</li>
+					<?php } ?>
+      			</ul>
+      		</div>
+		</nav>
+	</div>
+<?php } elseif ($categories) { ?>
+				]]>
+			</add>
+		</operation>
+	</file>
+		
+
+</modification>

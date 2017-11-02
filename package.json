@@ -1,0 +1,16 @@
+{
+  "name": "megapolis-kurort-oc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "Andrew Alexandrov <me@fan37.ru> (https://github.com/fanich37)",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.11",
+    "run-sequence": "^2.1.0"
+  }
+}
