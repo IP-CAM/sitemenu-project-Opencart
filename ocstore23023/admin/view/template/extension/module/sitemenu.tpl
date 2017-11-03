@@ -216,11 +216,11 @@
     setAllAttribute(td1, { class: 'text-center', style: 'width: 5%; font-size: 20px;' });
     setAllAttribute(td2, { class: 'text-left', style: 'width: 20%' });
     setAllAttribute(td3, { class: 'text-left', style: 'width: 20%' });
-    setAllAttribute(td4, { class: 'text-left', style: 'width: 20%' });
+    setAllAttribute(td4, { id: 'sub-menu' + id , class: 'text-left', style: 'width: 45%' });
     setAllAttribute(td5, { class: 'text-center', style: 'width: 10%' });
     setAllAttribute(title, { type: 'text', name: 'links[' + counter + '][title]', placeholder: titlePlaceholder, class: 'form-control' });
     setAllAttribute(href, { type: 'text', name: 'links[' + counter + '][href]', placeholder: hrefPlaceholder, class: 'form-control' });
-    setAllAttribute(sub, { type: 'button', 'data-toggle': 'tooltip', class: 'btn btn-primary', 'data-original-title': subPlaceholder, style: 'margin-right: 4px;' });
+    setAllAttribute(sub, { type: 'button', 'data-toggle': 'tooltip', class: 'btn btn-primary', onclick: 'addSubMenu(' + counter + ');', 'data-original-title': subPlaceholder, style: 'margin-right: 4px;' });
     setAllAttribute(remove, { type: 'button', 'data-toggle': 'tooltip', class: 'btn btn-danger', onclick: 'removeLink(' + counter + ');', 'data-original-title': removePlaceholder });
     setAllAttribute(iconHand, { class: 'fa fa-hand-paper-o' });
     setAllAttribute(iconPlus, { class: 'fa fa-plus-circle' });

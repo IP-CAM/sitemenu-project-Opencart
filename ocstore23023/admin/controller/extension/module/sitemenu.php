@@ -201,16 +201,29 @@ class ControllerExtensionModuleSitemenu extends Controller {
 		}
 
 		if (!isset($this->request->post['links'])) {
-			if (!isset($this->request->post['links']['title']) || !isset($this->post['links']['href'])) {
+			if (!isset($this->request->post['links']['title'])) {
 				$this->error['empty'] = $this->language->get('error_empty');
 			}
 		}
 
 		if (isset($this->request->post['links'])) {
-			foreach($this->request->post['links'] as $link) {
-				if (!$link['title']) {
-					$this->error['title'] = $this->language->get('error_title');	
+			foreach($this->request->post['links'] as $link => $value) {
+				if (!$value['title']) {
+					$this->error['title'] = $this->language->get('error_title');
 				}
+				if (isset($value['sub-link'])) {
+					foreach ($value['sub-link'] as $sublink) {
+						if (!$sublink['title']) {
+							$this->error['title'] = $this->language->get('error_title');
+						}
+					}
+				}
+				if (!isset($value['sub-link'])) {
+					$submenu = '';
+				}else {
+					$submenu = $value['sub-link'];
+				}
+				$this->request->post['links'][$link]['sub-link'] = $submenu;
 			}
 		}
 

@@ -25,8 +25,8 @@
 				$item = json_decode($menu, true);
 				if (isset($item['position_header'])) {
 					$data['menu'][$item['slug']] = array(
-						'title'   => $item['name'],
-						'links'   => $item['links'],
+						'title'		=> $item['name'],
+						'links'		=> $item['links']
 					);
 				}
 			}
@@ -45,22 +45,34 @@
 			</search>
 			<add position="replace">
 				<![CDATA[
-<?php var_dump($menu); ?>
 <?php if ($menu) { ?>
 	<div class="container">
 		<nav id="menu" class="navbar">
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-      			<ul class="nav navbar-nav">
-					<?php foreach($menu['main']['links'] as $link) { ?>
+				<ul class="nav navbar-nav">
+				<?php foreach($menu['main']['links'] as $link) { ?>
+					<?php if ($link['sub-link']) { ?>
+					<li class="dropdown">
+						<a href="<?php echo $link['href']; ?>" class="dropdown-toggle"><?php echo $link['title']; ?></a>
+						<div class="dropdown-menu">
+							<div class="dropdown-inner">
+								<ul class="list-unstyled">
+									<?php foreach($link['sub-link'] as $sublink) { ?>
+									<li><a href="<?php echo $sublink['href']; ?>"><?php echo $sublink['title']; ?></a></li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<?php } else { ?>
 					<li>
 						<a href="<?php echo $link['href']; ?>"><?php echo $link['title']; ?></a>
-						<?php if ($link['sub-link']) { ?>
-						<p>DAAA</p>
-						<?php } ?>
 					</li>
 					<?php } ?>
-      			</ul>
-      		</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
 		</nav>
 	</div>
 <?php } elseif ($categories) { ?>
